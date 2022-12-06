@@ -16,7 +16,7 @@ app.use("/api/products", routerProducts);
 app.use("/api/shoppingcart", routerCart);
 
 // endpoints
-app.get("*", (req, res) => {
+app.all("*", (req, res) => {
   res.status(418).json({
     error: -2,
     description: `${req.path} not implemented`,

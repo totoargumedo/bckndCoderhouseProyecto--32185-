@@ -1,5 +1,4 @@
 import Product from "../containers/products.js";
-import admin from "../login/admin.js";
 
 const productos = new Product("productos", true); // El segundo argumento sirve para indicar si creara un nuevo archivo en caso de no encontrar el archivo indicado
 
@@ -14,37 +13,16 @@ async function getProduct({ params }, res) {
 }
 
 async function saveProduct({ body }, res) {
-  if (!admin) {
-    return res.status(403).json({
-      error: -1,
-      description: `${req.path} not allowed`,
-      method: req.method,
-    });
-  }
   const savedProduct = await productos.save(body);
   res.status(201).json(savedProduct);
 }
 
 async function modifyProduct({ body, params: { id } }, res) {
-  if (!admin) {
-    return res.status(403).json({
-      error: -1,
-      description: `${req.path} not allowed`,
-      method: req.method,
-    });
-  }
   const modifiedProduct = await productos.modifyById(id, body);
   res.status(201).json(modifiedProduct);
 }
 
 async function deleteProduct({ params }, res) {
-  if (!admin) {
-    return res.status(403).json({
-      error: -1,
-      description: `${req.path} not allowed`,
-      method: req.method,
-    });
-  }
   const deletedProduct = await productos.deleteById(params.id);
   res.status(201).json(deletedProduct);
 }
